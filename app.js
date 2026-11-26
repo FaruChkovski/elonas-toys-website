@@ -877,6 +877,7 @@ function setupAuthUI() {
     const user = window.firebaseAuth.currentUser;
     if (profileNameEl) profileNameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (profileEmailEl) profileEmailEl.textContent = user?.email || '';
+    profileModal.style.display = 'flex';
     profileModal.classList.add('open');
     console.log('[profile] modal opened, classes:', profileModal.className);
   }

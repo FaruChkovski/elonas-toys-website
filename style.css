@@ -465,7 +465,7 @@ header {
   z-index: 200; backdrop-filter: blur(4px);
   animation: slideIn 0.35s ease-out forwards;
 }
-.modal-overlay.open { display: flex; }
+.modal-overlay.open { display: flex !important; }
 .modal {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
