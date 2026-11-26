@@ -360,6 +360,18 @@ header {
     font-size: 1.4rem;
   }
 
+  /* Keep profile/auth button on one line on mobile */
+  .auth-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    max-width: 150px;
+  }
+
   /* Hide brand text on mobile — logo only */
   .header-left .brand-text {
     display: none;
