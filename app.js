@@ -875,6 +875,11 @@ function setupAuthUI() {
     console.log('[profile] showProfilePopup called, modal found:', !!profileModal);
     if (!profileModal) return;
     const user = window.firebaseAuth.currentUser;
+    const avatarEl = document.getElementById('profileAvatar');
+    if (avatarEl) {
+      avatarEl.src = user?.photoURL || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28">🧸</text></svg>';
+      avatarEl.alt = 'Profile';
+    }
     if (profileNameEl) profileNameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (profileEmailEl) profileEmailEl.textContent = user?.email || '';
     profileModal.style.display = 'flex';
