@@ -1017,9 +1017,11 @@ function setupAuthUI() {
     console.log('[auth] updateAuthUI called, user:', user ? user.email : null);
     if (!authBtn) return;
     if (user) {
-      const name = user.displayName || user.email?.split('@')[0] || 'User';
-      authBtn.textContent = name;
+      const photo = user.photoURL;
+      const fallback = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="24">👤</text></svg>';
+      authBtn.innerHTML = `<img src="${photo || fallback}" alt="Profile" style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;">`;
       authBtn.title = 'Profile';
+      authBtn.classList.add('round');
       authBtn.onclick = null;
       authBtn.addEventListener('click', (e) => {
         console.log('[auth] profile button clicked');
@@ -1027,8 +1029,9 @@ function setupAuthUI() {
         showProfilePopup();
       });
     } else {
-      authBtn.textContent = state.lang === 'ar' ? 'تسجيل الدخول / انضمام' : 'Sign In / Join';
-      authBtn.title = 'Sign In';
+      authBtn.classList.remove('round');
+      authBtn.textContent = state.lang === 'ar' ? 'انضمام' : 'Join';
+      authBtn.title = 'Join';
       authBtn.onclick = null;
       authBtn.addEventListener('click', (e) => { e.stopPropagation(); showAuthModal(); });
     }
