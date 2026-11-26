@@ -860,26 +860,36 @@ function setupAuthUI() {
   });
 
   // --- Profile popup ---
-  const profileModal = document.getElementById('profileModal');
   const profileModalClose = document.getElementById('profileModalClose');
   const profileNameEl = document.getElementById('profileName');
   const profileEmailEl = document.getElementById('profileEmail');
   const profileSwitchBtn = document.getElementById('profileSwitchBtn');
   const profileSignOutBtn = document.getElementById('profileSignOutBtn');
 
+  function getProfileModal() {
+    return document.getElementById('profileModal');
+  }
+
   function showProfilePopup() {
+    const profileModal = getProfileModal();
+    console.log('[profile] showProfilePopup called, modal found:', !!profileModal);
     if (!profileModal) return;
     const user = window.firebaseAuth.currentUser;
     if (profileNameEl) profileNameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (profileEmailEl) profileEmailEl.textContent = user?.email || '';
     profileModal.classList.add('open');
+    console.log('[profile] modal opened, classes:', profileModal.className);
   }
   function hideProfilePopup() {
+    const profileModal = getProfileModal();
     if (!profileModal) return;
     profileModal.classList.remove('open');
   }
   if (profileModalClose) profileModalClose.addEventListener('click', hideProfilePopup);
-  if (profileModal) profileModal.addEventListener('click', (e) => { if (e.target === profileModal) hideProfilePopup(); });
+  const profileModalEl = getProfileModal();
+  if (profileModalEl) {
+    profileModalEl.addEventListener('click', (e) => { if (e.target === profileModalEl) hideProfilePopup(); });
+  }
   if (profileSignOutBtn) profileSignOutBtn.addEventListener('click', async () => {
     hideProfilePopup();
     await signOut();
@@ -995,13 +1005,18 @@ function setupAuthUI() {
   }
 
   function updateAuthUI(user) {
+    console.log('[auth] updateAuthUI called, user:', user ? user.email : null);
     if (!authBtn) return;
     if (user) {
       const name = user.displayName || user.email?.split('@')[0] || 'User';
       authBtn.textContent = name;
       authBtn.title = 'Profile';
       authBtn.onclick = null;
-      authBtn.addEventListener('click', (e) => { e.stopPropagation(); showProfilePopup(); });
+      authBtn.addEventListener('click', (e) => {
+        console.log('[auth] profile button clicked');
+        e.stopPropagation();
+        showProfilePopup();
+      });
     } else {
       authBtn.textContent = state.lang === 'ar' ? 'تسجيل الدخول / انضمام' : 'Sign In / Join';
       authBtn.title = 'Sign In';
@@ -1014,6 +1029,13 @@ function setupAuthUI() {
 document.addEventListener('DOMContentLoaded', () => {
   setupAuthUI();
 });
+
+// Also call setupAuthUI immediately if DOM is already past loading state,
+// since this is a deferred module script and DOMContentLoaded may have
+// already fired by the time it executes.
+if (document.readyState !== 'loading') {
+  setupAuthUI();
+}
 
 // Expose inline onclick handlers to window scope (product cards call them via HTML attributes)
 window.addToCart = addToCart;
