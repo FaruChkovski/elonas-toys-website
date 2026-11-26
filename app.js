@@ -878,8 +878,11 @@ function setupAuthUI() {
     if (profileNameEl) profileNameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (profileEmailEl) profileEmailEl.textContent = user?.email || '';
     profileModal.style.display = 'flex';
+    profileModal.style.visibility = 'visible';
+    profileModal.style.opacity = '1';
+    profileModal.style.zIndex = '9999';
     profileModal.classList.add('open');
-    console.log('[profile] modal opened, classes:', profileModal.className);
+    console.log('[profile] modal opened, classes:', profileModal.className, 'computed display:', getComputedStyle(profileModal).display);
   }
   function hideProfilePopup() {
     const profileModal = getProfileModal();
