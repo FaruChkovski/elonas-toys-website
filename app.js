@@ -1023,10 +1023,10 @@ function setupAuthUI() {
       authBtn.title = 'Profile';
       authBtn.classList.add('round');
       authBtn.onclick = null;
-      authBtn.addEventListener('click', async (e) => {
+      authBtn.addEventListener('click', (e) => {
         console.log('[auth] profile button clicked');
         e.stopPropagation();
-        await signOut();
+        showProfilePopup();
       });
     } else {
       authBtn.classList.remove('round');
