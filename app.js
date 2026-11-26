@@ -449,7 +449,7 @@ function productCardHTML(p) {
         <p class="product-desc" style="font-size:0.85rem; color:var(--color-text-muted); margin:10px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${escapeHtml(desc)}</p>
       </div>
       <div class="product-actions">
-        <button class="btn btn-accent btn-sm w-full mb-8" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '🛒 Add to Cart'}</button>
+        <button class="btn btn-accent btn-sm w-full mb-8" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '<span style="font-size:1.15em; text-shadow:0 1px 2px rgba(0,0,0,0.6);">🛒</span> Add to Cart'}</button>
         <button class="btn btn-ghost btn-sm w-full mb-8" onclick="toggleWatchlist('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${isInWatchlist(p.id) ? (state.lang === 'ar' ? 'مُضاف للأمنيات' : 'Added to Watchlist 💖') : (state.lang === 'ar' ? 'إضافة للأمنيات' : 'Add to Watchlist 💖')}</button>
         <button class="btn btn-ghost btn-sm w-full" onclick="openProductModal('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${state.lang === 'ar' ? 'عرض التفاصيل' : 'View Details'}</button>
       </div>
@@ -578,7 +578,7 @@ function renderWatchlist() {
           ${onOffer ? `<div style="color:var(--color-primary); font-weight:700; font-size:0.85rem;">🎉 On offer!</div>` : ''}
         </div>
         <div class="product-actions">
-          <button class="btn btn-accent btn-sm w-full mb-8" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '🛒 Add to Cart'}</button>
+          <button class="btn btn-accent btn-sm w-full mb-8" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '<span style="font-size:1.15em; text-shadow:0 1px 2px rgba(0,0,0,0.6);">🛒</span> Add to Cart'}</button>
           <button class="btn btn-ghost btn-sm w-full" onclick="toggleWatchlist('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${state.lang === 'ar' ? 'إزالة من الأمنيات' : 'Remove from Watchlist'}</button>
         </div>
       </article>
@@ -702,7 +702,7 @@ function openProductModal(productId) {
       </div>
     </div>
     <div style="display:flex; gap:12px;">
-      <button class="btn btn-accent" style="flex:1;" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '🛒 Add to Cart'}</button>
+      <button class="btn btn-accent" style="flex:1;" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : '<span style="font-size:1.15em; text-shadow:0 1px 2px rgba(0,0,0,0.6);">🛒</span> Add to Cart'}</button>
       <a href="https://wa.me/${state.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}?text=${encodeURIComponent(`I want to order ${name} for $${p.price} from Elona's Toys`)}" class="btn btn-primary" target="_blank">${state.lang === 'ar' ? 'طلب عبر واتساب' : 'Order via WhatsApp'}</a>
     </div>
   `;
