@@ -873,6 +873,7 @@ function setupAuthUI() {
 
   // Restore signed-in state on page refresh — update button + sync watchlist
   window.firebaseAuth?.onAuthStateChanged(async (user) => {
+    updateAuthUI(user);
     try {
         const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
         const snap = await getDoc(doc(window.firebaseDb, 'users', user.uid, 'watchlist', 'items'));
