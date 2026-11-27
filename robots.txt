@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://faruchkovski.github.io/elonas-toys-website/sitemap.xml

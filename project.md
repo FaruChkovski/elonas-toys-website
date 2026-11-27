@@ -34,8 +34,8 @@ End-to-end static website for Elona's Toys (@elonastoys), a local toy and kids e
 ├── catalog.html            # Full catalog — Age + Category + Keyword + Budget filtering, Grid/List view, result count
 ├── product-detail.html     # Individual product page — Add to Cart / WhatsApp order
 ├── about.html              # About Us
-├── contact.html            # Contact — Formspree form (YOUR_FORM_ID to replace before going live)
 ├── delivery.html           # Delivery Info & payment methods (Whish Money / Pay Upon Delivery)
+├── watchlist.html          # Your Watchlist (save toys you love, get notified on offers)
 ├── app.js                  # Vanilla JS app — cart, filters, bilingual, theme, WhatsApp checkout
 ├── style.css               # Design system — Light + Dark mode tokens, Fredoka heading font
 ├── products.json           # 21 products — all age brackets & categories
@@ -82,7 +82,7 @@ End-to-end static website for Elona's Toys (@elonastoys), a local toy and kids e
 - `app.js`: `applyLang()` only sets store-name title on homepage; subpage titles preserved
 - `app.js`: `#catalogResultCount` updates in EN/AR whenever filters/keywords change
 - `_INDEX.md`: product count "12 products" → "21 products"
-- `contact.html`: added `<!-- TODO: Replace YOUR_FORM_ID ... -->` comment before Formspree form
+- `watchlist.html`: created — Watchlist page with empty state, grid, and Browse Catalog CTA
 
 ### 7. Professional polish
 - `SPEC.md`: status → `completed`, typography updated to Fredoka, next-step note updated
@@ -109,9 +109,8 @@ End-to-end static website for Elona's Toys (@elonastoys), a local toy and kids e
 
 ## ⚠️ Remaining Manual Actions (before going live)
 
-1. **`contact.html`** — Replace `YOUR_FORM_ID` in the Formspree form action with your actual Formspree form ID.
-2. **Real product photos** — `products.json` currently uses `assets/placeholder-bear.png` for all product images; swap in real stock photos when available.
-3. **WhatsApp number** — `app.js` uses masked `+961****2712`; confirm the full number is correct for checkout.
+1. **Real product photos** — `products.json` currently uses `assets/placeholder-bear.png` for all product images; swap in real stock photos when available.
+3. **WhatsApp number** — `app.js` reads the number from `products.json` store.whatsapp at runtime (`+961 78 702 712`). Confirm this number is correct; HTML files hardcode `wa.me/96178702712` in CTA links (see WhatsApp consolidation task).
 
 ---
 

@@ -66,7 +66,7 @@ Incremental decision log for the Elona's Toys website project. Decisions are rec
 
 ## Topic 5: Tech Stack, Performance & Deployment ✅ COMPLETE
 
-- **Tech stack:** Static HTML + vanilla JS (no build step), products in a JSON file, Netlify/Vercel hosting (free tier), Formspree for contact form ✅ *(recommended stack)*
+- **Tech stack:** Static HTML + vanilla JS (no build step), products in a JSON file, Netlify/Vercel hosting (free tier) ✅ *(recommended stack)*
 - **Product-updating workflow:** Edit a JSON file to add new toys ✅
 
 ---

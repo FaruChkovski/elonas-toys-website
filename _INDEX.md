@@ -51,8 +51,8 @@ End-to-end website project for Elona's Toys (@elonastoys), a local toy and kids 
 - `catalog.html` — Full catalog with instant Age + Category + Keyword filtering + Grid/List view
 - `product-detail.html` — Individual product page with Add to Cart / WhatsApp order
 - `about.html` — About Us
-- `contact.html` — Contact with Formspree form
 - `delivery.html` — Delivery Info & payment methods (Whish Money / Pay Upon Delivery)
+- `watchlist.html` — Your Watchlist (save toys you love, get notified on offers)
 - `style.css` — Design system with Light + Dark mode tokens
 - `app.js` — Vanilla JS app (cart, filters, bilingual, theme, WhatsApp checkout)
 - `products.json` — 21 products with all age brackets & categories

@@ -41,7 +41,7 @@ related:
 2. Catalog (all toys)
 3. Product Detail
 4. About Us
-5. Contact
+5. Watchlist
 6. Delivery Info
 
 ### Homepage Section Order (top to bottom)
@@ -171,7 +171,6 @@ Logo → Core nav links → Search trigger → Cart badge → EN/AR toggle → D
 | Frontend | Static HTML + vanilla JS (no build step) |
 | Product data | JSON file (easy to add new toys) |
 | Hosting | Netlify or Vercel (free tier) |
-| Contact form | Formspree |
 | Animations | CSS keyframes |
 
 ---

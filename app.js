@@ -199,6 +199,7 @@ async function init() {
     state.store = data.store;
     if (data.store?.whatsapp) state.whatsapp = data.store.whatsapp;
     document.title = data.store.name;
+    syncWhatsappLinks();
   } catch (e) {
     console.error('Failed to load products:', e);
   }
@@ -654,6 +655,18 @@ function copyNumber() {
   });
 }
 
+function syncWhatsappLinks() {
+  document.querySelectorAll('a[data-whatsapp]').forEach(a => {
+    try {
+      const url = new URL(a.href);
+      const phone = state.whatsapp.replace(/\+/g, '').replace(/\s/g, '');
+      url.hostname = 'wa.me';
+      url.pathname = '/' + phone;
+      a.href = url.toString();
+    } catch (e) { /* ignore */ }
+  });
+}
+
 // --- Toast ---
 function showToast(msg) {
   els.toast.textContent = msg;
@@ -718,11 +731,7 @@ document.getElementById('productModalOverlay')?.addEventListener('click', (e) =>
   }
 });
 
-// Make cart functions global for inline onclick handlers
-window.addToCart = addToCart;
-window.removeFromCart = removeFromCart;
-window.changeQty = changeQty;
-window.openProductModal = openProductModal;
+// Duplicate global assignments removed — functions exposed once below (lines ~1052-1057)
 
 // --- Firebase Auth ---
 window.signUp = async function(email, password, name) {

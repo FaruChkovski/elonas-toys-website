@@ -37,7 +37,10 @@
 <header>
   <div class="header-left">
     <a href="index.html" class="logo">
-      <img src="assets/logo.png" alt="Elona's Toys logo">
+      <picture>
+        <source srcset="assets/logo.webp" type="image/webp">
+        <img src="assets/logo.png" alt="Elona's Toys logo">
+</picture>
       <span class="brand-text">
         <span class="c1">E</span><span class="c2">l</span><span class="c3">o</span><span class="c4">n</span><span class="c5">a</span><span class="c6">'</span><span class="c7">s</span>
         <span class="c7"> </span><span class="c8">T</span><span class="c9">o</span><span class="c10">y</span><span class="c11">s</span>
@@ -56,7 +59,7 @@
     <div class="cart-badge" id="cartBadge" title="Your Cart">🛒<span class="cart-count" id="cartCount">0</span></div>
     <button class="theme-toggle" id="themeToggle" title="Dark/Light Mode">🌙</button>
     <button class="lang-toggle" id="langToggle" title="English / Arabic">EN / AR</button>
-    <a href="https://wa.me/96178702712" class="whatsapp-cta whatsapp-icon-btn" target="_blank" aria-label="WhatsApp"><img src="assets/icons/whatsapp.png" alt="WhatsApp"></a>
+    <a href="https://wa.me/96178702712" class="whatsapp-cta whatsapp-icon-btn" target="_blank" aria-label="WhatsApp" data-whatsapp="true"><img src="assets/icons/whatsapp.png" alt="WhatsApp"></a>
     <button id="authBtn" class="auth-btn" data-i18n="auth.signIn">Sign In / Join</button>
     <button class="mobile-menu-toggle" title="Menu">☰</button>
   </div>
@@ -81,7 +84,7 @@
           <p style="color:var(--color-text-muted); margin-bottom:24px;" id="productDesc"></p>
           <div style="display:flex; gap:12px; flex-wrap:wrap;">
             <button class="btn btn-accent" onclick="addToCartFromDetail()">🛒 Add to Cart</button>
-            <a href="https://wa.me/96178702712" class="btn btn-primary" target="_blank">💬 WhatsApp Order</a>
+            <a href="https://wa.me/96178702712" class="btn btn-primary" target="_blank" data-whatsapp="true">💬 WhatsApp Order</a>
           </div>
         </div>
       </div>
