@@ -1,0 +1,26 @@
+You are working on my local repository for `elonas-toys-website` (`https://github.com/FaruChkovski/elonas-toys-website`).
+
+### STRICT GIT & SCOPE CONSTRAINTS
+1. **Local edits ONLY:** Modify local project files only. Do NOT run `git commit`, `git push`, `git pull`, or any remote/branch-changing git commands. Leave the working tree ready for me to inspect and test locally before pushing.
+2. **Animation layer ONLY:** Port and upgrade ONLY the ambient background animation system (aurora mesh blobs, starlight/bokeh canvas particles, floating 3D clay toy accents, cursor parallax, and optional test controls) onto existing pages. Do NOT overwrite existing page copy, layout structure, routing, cart/product logic, or theme-toggle mechanics.
+3. **Both Dark Mode & Light Mode across ALL pages:** Discover every HTML/page entry point and stylesheet/theme mechanism in the repo and wire the background animation so it adapts cleanly to BOTH dark mode and light mode on EVERY page.
+
+### UPGRADE REQUIREMENTS FOR THE BACKGROUND ANIMATION
+1. **Modular Architecture:** Extract the background animation into dedicated local files (e.g., `assets/js/bg-animation.js` and `assets/css/bg-animation.css`, or match the repo's existing asset/script structure) and include them cleanly across all pages.
+2. **Theme Reactivity (Dark + Light):**
+   - Detect the active theme automatically via the site's existing dark/light state (e.g., `data-theme`, `.dark` / `.light` class on `html`/`body`, CSS custom properties, or `prefers-color-scheme`) AND listen for live theme-toggle changes (`MutationObserver` / theme toggle event listeners) so switching modes updates the background immediately without reloading.
+   - **Dark mode palette:** Deep midnight atmosphere with rich violet (`#8B5CF6`), coral (`#FF6B6B`), and golden yellow (`#FBBF24`) glow accents and crisp starlight/bokeh highlights.
+   - **Light mode palette:** Soft, bright daylight pastel/aurora wash (airy lavender/violet, warm coral tint, and soft golden sunbeams) with low-opacity ambient bokeh/motifs that stay gentle and never reduce text contrast or legibility.
+3. **Performance & Safety Upgrades:**
+   - Keep the background layer non-interactive (`pointer-events: none`, behind main content via stacking context/z-index) so buttons, links, inputs, and cards remain 100% clickable.
+   - Respect `prefers-reduced-motion: reduce` by pausing motion and rendering a calm static state.
+   - Pause the `requestAnimationFrame` loop when the browser tab is hidden (`document.visibilityState === "hidden"`) and clean up listeners/resize observers cleanly.
+   - Cap particle counts and scale gently on smaller viewports so mobile/low-power devices stay smooth.
+4. **Local Testability:**
+   - Keep or expose a clean local tuning hook (e.g., `window.ElonaBgAnim` with `setIntensity`, `setParallax`, `togglePause`, `setThemePreview`) so I can test in DevTools or on a local preview server before deciding whether to keep a UI control panel.
+
+### EXECUTION STEPS
+1. Inspect the repository file tree, existing pages, CSS variables/theme classes, and scripts first.
+2. Implement the upgraded background CSS + JS module and attach it across all pages.
+3. Verify there are no broken asset paths, console errors, z-index overlaps, or contrast issues in either dark or light mode.
+4. Summarize every file created or modified and list exact local verification steps (including `git status --short` confirming no commits or pushes were made).
