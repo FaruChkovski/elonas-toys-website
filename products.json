@@ -8,17 +8,39 @@
     "whatsapp": "+961 78 702 712",
     "hours": "Monday – Sunday, 9:00 AM – 9:30 PM",
     "delivery": "Available across Lebanon",
-    "paymentMethods": ["Whish Money", "Pay Upon Delivery"],
-    "specialOffers": ["p001", "p002", "p003", "p004", "p007", "p009"],
+    "paymentMethods": [
+      "Whish Money",
+      "Pay Upon Delivery"
+    ],
+    "specialOffers": [
+      "p001",
+      "p002",
+      "p003",
+      "p004",
+      "p007",
+      "p009"
+    ],
     "offers": {
-      "p001": { "originalPrice": 35 },
-      "p002": { "originalPrice": 42 },
-      "p003": { "originalPrice": 25 },
-      "p004": { "originalPrice": 38 },
-      "p007": { "originalPrice": 55 },
-      "p009": { "originalPrice": 28 }
+      "p001": {
+        "originalPrice": 35
+      },
+      "p002": {
+        "originalPrice": 42
+      },
+      "p003": {
+        "originalPrice": 25
+      },
+      "p004": {
+        "originalPrice": 38
+      },
+      "p007": {
+        "originalPrice": 55
+      },
+      "p009": {
+        "originalPrice": 28
+      }
     }
-    },
+  },
   "ageBrackets": [
     "0–12 Months",
     "1–3 Years",
@@ -44,9 +66,12 @@
       "ageBracket": "0–12 Months",
       "category": "Baby & Toddler",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Soft cuddly teddy bear — perfect first friend for your little one.",
-      "descriptionAr": "دباديب ناعم ومميز — الصديق الأول المثالي لصغيرك."
+      "descriptionAr": "دباديب ناعم ومميز — الصديق الأول المثالي لصغيرك.",
+      "details": "Perfect for newborns and infants. Soft, cuddly, and safe for snuggling. Machine washable on gentle cycle. Suitable for ages 0–12 months."
     },
     {
       "id": "p002",
@@ -56,9 +81,12 @@
       "ageBracket": "1–3 Years",
       "category": "Educational & STEM",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Colorful wooden blocks for stacking, sorting, and early learning.",
-      "descriptionAr": "مكعبات خشبية ملونة للترتيب والتصنيف والتعلم المبكر."
+      "descriptionAr": "مكعبات خشبية ملونة للترتيب والتصنيف والتعلم المبكر.",
+      "details": "Stack, sort, and build to develop fine motor skills and early learning. Wash blocks with mild soap and water. Recommended for ages 1–3 years."
     },
     {
       "id": "p003",
@@ -68,9 +96,12 @@
       "ageBracket": "3–5 Years",
       "category": "Cars & Action",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Zoom around the room with this sturdy die-cast race car.",
-      "descriptionAr": "انطلق في الغرفة مع سيارة السباق المعدنية المتينة هذه."
+      "descriptionAr": "انطلق في الغرفة مع سيارة السباق المعدنية المتينة هذه.",
+      "details": "Wind up or push and watch it race. Great for hand-eye coordination and active play. Not suitable for children under 3. Ages 3–5 years."
     },
     {
       "id": "p004",
@@ -80,9 +111,12 @@
       "ageBracket": "6–8 Years",
       "category": "Dolls & Pretend Play",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Stylish doll with changeable outfits for hours of pretend play.",
-      "descriptionAr": "دمية أنيقة مع ملابس قابلة للتغيير لساعات من اللعب التمثيلي."
+      "descriptionAr": "دمية أنيقة مع ملابس قابلة للتغيير لساعات من اللعب التمثيلي.",
+      "details": "Change outfits, style hair, and enjoy hours of pretend play. Ideal for ages 6–8 years. Brush hair gently with a soft brush."
     },
     {
       "id": "p005",
@@ -92,9 +126,12 @@
       "ageBracket": "0–12 Months",
       "category": "Educational & STEM",
       "stock": "Low Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Learn letters and colors with these classic alphabet blocks.",
-      "descriptionAr": "تعلم الحروف والألوان مع مكعبات الأبجدية الكلاسيكية هذه."
+      "descriptionAr": "تعلم الحروف والألوان مع مكعبات الأبجدية الكلاسيكية هذه.",
+      "details": "Learn letters, colors, and spelling. Wipe clean with a damp cloth. Ages 0–12 months and up."
     },
     {
       "id": "p006",
@@ -104,9 +141,12 @@
       "ageBracket": "6–8 Years",
       "category": "Cars & Action",
       "stock": "Out of Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Big wheels, big fun — the ultimate monster truck for crashing and racing.",
-      "descriptionAr": "عجلات كبيرة، متعة كبيرة — شاحنة وحش نهائية للتحطم والسباق."
+      "descriptionAr": "عجلات كبيرة، متعة كبيرة — شاحنة وحش نهائية للتحطم والسباق.",
+      "details": "Big wheels for crashing and racing fun. Requires 2 AA batteries (not included). Ages 6–8 years."
     },
     {
       "id": "p007",
@@ -116,9 +156,12 @@
       "ageBracket": "3–5 Years",
       "category": "Dolls & Pretend Play",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Mini kitchen with pots, pans, and play food for little chefs.",
-      "descriptionAr": "مطبخ مصغر مع أواني وأطعمة لعب للطهاة الصغار."
+      "descriptionAr": "مطبخ مصغر مع أواني وأطعمة لعب للطهاة الصغار.",
+      "details": "Mini pots, pans, and play food for little chefs. Encourages imaginative role-play. Wipe clean after use. Ages 3–5 years."
     },
     {
       "id": "p008",
@@ -128,9 +171,12 @@
       "ageBracket": "9+ Years",
       "category": "Outdoor & Ride-Ons",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Backyard swing set with slide — hours of outdoor fun.",
-      "descriptionAr": "مجموعة أرجوحة في الفناء الخلفي مع منزلقة — ساعات من المتعة في الهواء الطلق."
+      "descriptionAr": "مجموعة أرجوحة في الفناء الخلفي مع منزلقة — ساعات من المتعة في الهواء الطلق.",
+      "details": "Backyard swing set with slide. Adult assembly required. Anchor to ground before use. Ages 9+ years."
     },
     {
       "id": "p009",
@@ -140,9 +186,12 @@
       "ageBracket": "6–8 Years",
       "category": "Board Games & Puzzles",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "World map puzzle — learn geography while playing.",
-      "descriptionAr": "أحجية خريطة العالم — تعلم الجغرافيا أثناء اللعب."
+      "descriptionAr": "أحجية خريطة العالم — تعلم الجغرافيا أثناء اللعب.",
+      "details": "World map puzzle to learn geography. 48 large pieces for small hands. Store in the box when not in use. Ages 6–8 years."
     },
     {
       "id": "p010",
@@ -152,9 +201,12 @@
       "ageBracket": "3–5 Years",
       "category": "Outdoor & Ride-Ons",
       "stock": "Low Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Battery-powered ride-on car for adventures around the driveway.",
-      "descriptionAr": "سيارة ركوب تعمل بالبطارية للمغامرات حول الممر."
+      "descriptionAr": "سيارة ركوب تعمل بالبطارية للمغامرات حول الممر.",
+      "details": "Battery-powered ride-on car. Charge battery fully before first use. Supervise at all times. Ages 3–5 years."
     },
     {
       "id": "p011",
@@ -164,9 +216,12 @@
       "ageBracket": "0–12 Months",
       "category": "Baby & Toddler",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Colorful rattles for sensory development in newborns.",
-      "descriptionAr": "محضرات ملونة للتطور الحسي عند حديثي الولادة."
+      "descriptionAr": "محضرات ملونة للتطور الحسي عند حديثي الولادة.",
+      "details": "Colorful rattles for sensory development. BPA-free and easy to grip. Sterilize before first use. Ages 0–12 months."
     },
     {
       "id": "p012",
@@ -176,9 +231,12 @@
       "ageBracket": "9+ Years",
       "category": "Educational & STEM",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Complete art set with paints, brushes, and canvas for young artists.",
-      "descriptionAr": "مجموعة فنية كاملة مع ألوان وفرش وقماش للفنانين الصغار."
+      "descriptionAr": "مجموعة فنية كاملة مع ألوان وفرش وقماش للفنانين الصغار.",
+      "details": "Complete art set with paints, brushes, and canvas. Protect work surfaces. Wash brushes after use. Ages 9+ years."
     },
     {
       "id": "p013",
@@ -188,9 +246,12 @@
       "ageBracket": "1–3 Years",
       "category": "Baby & Toddler",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Colorful xylophone for early music exploration.",
-      "descriptionAr": "خشابة ملونة لاستكشاف الموسيقى في مرحلة الطفولة المبكرة."
+      "descriptionAr": "خشابة ملونة لاستكشاف الموسيقى في مرحلة الطفولة المبكرة.",
+      "details": "Colorful xylophone for early music exploration. Tap gently with the included mallet. Ages 1–3 years."
     },
     {
       "id": "p014",
@@ -200,9 +261,12 @@
       "ageBracket": "3–5 Years",
       "category": "Cars & Action",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Roaring T-Rex action figure for prehistoric adventures.",
-      "descriptionAr": "تمثال ديناصور تيرانوصور Rex للمغامرات ما قبل التاريخ."
+      "descriptionAr": "تمثال ديناصور تيرانوصور Rex للمغامرات ما قبل التاريخ.",
+      "details": "Roaring T-Rex action figure for prehistoric adventures. Great for imaginative play. Ages 3–5 years."
     },
     {
       "id": "p015",
@@ -212,9 +276,12 @@
       "ageBracket": "3–5 Years",
       "category": "Dolls & Pretend Play",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Pretend doctor kit with stethoscope, syringe, and bandages.",
-      "descriptionAr": "مجموعة طبيب تخيلية مع سماعة أذن وحقنة ولاصقات."
+      "descriptionAr": "مجموعة طبيب تخيلية مع سماعة أذن وحقنة ولاصقات.",
+      "details": "Pretend doctor kit with stethoscope, syringe, and bandages. Wipe clean after play. Ages 3–5 years."
     },
     {
       "id": "p016",
@@ -224,9 +291,12 @@
       "ageBracket": "6–8 Years",
       "category": "Educational & STEM",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Wooden board for practicing addition, subtraction, and multiplication.",
-      "descriptionAr": "لوحة خشبية لممارسة الجمع والطرح والضرب."
+      "descriptionAr": "لوحة خشبية لممارسة الجمع والطرح والضرب.",
+      "details": "Wooden board for practicing addition, subtraction, and multiplication. Use with dry-erase marker. Ages 6–8 years."
     },
     {
       "id": "p017",
@@ -236,9 +306,12 @@
       "ageBracket": "6–8 Years",
       "category": "Board Games & Puzzles",
       "stock": "Low Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Classic family board game for game night fun.",
-      "descriptionAr": "لعبة لوحية عائلية كلاسيكية لليالي المرح."
+      "descriptionAr": "لعبة لوحية عائلية كلاسيكية لليالي المرح.",
+      "details": "Classic family board game for game night fun. For 2–4 players. Ages 6–8 years."
     },
     {
       "id": "p018",
@@ -248,9 +321,12 @@
       "ageBracket": "3–5 Years",
       "category": "Outdoor & Ride-Ons",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "No-pedal balance bike to learn coordination before riding.",
-      "descriptionAr": "دراجة توازن بدون دوالات لتعلم التنسيق قبل الركوب."
+      "descriptionAr": "دراجة توازن بدون دوالات لتعلم التنسيق قبل الركوب.",
+      "details": "No-pedal balance bike to learn coordination. Always wear a helmet. Adjust seat height as child grows. Ages 3–5 years."
     },
     {
       "id": "p019",
@@ -260,9 +336,12 @@
       "ageBracket": "0–12 Months",
       "category": "Baby & Toddler",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Safe silicone teether for teething babies.",
-      "descriptionAr": "لعاب سيليكون آمن للأطفال في مرحلة التسنين."
+      "descriptionAr": "لعاب سيليكون آمن للأطفال في مرحلة التسنين.",
+      "details": "Safe silicone teether for teething babies. Sterilize before each use. Chill in fridge (not freezer) for soothing relief. Ages 0–12 months."
     },
     {
       "id": "p020",
@@ -272,9 +351,12 @@
       "ageBracket": "9+ Years",
       "category": "Cars & Action",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Fast RC car with working lights and sounds.",
-      "descriptionAr": "سيارة RC سريعة مع أضواء وأصوات تعمل."
+      "descriptionAr": "سيارة RC سريعة مع أضواء وأصوات تعمل.",
+      "details": "Fast RC car with working lights and sounds. Requires batteries (not included). Outdoor use recommended. Ages 9+ years."
     },
     {
       "id": "p021",
@@ -284,9 +366,12 @@
       "ageBracket": "3–5 Years",
       "category": "Kids Essentials",
       "stock": "In Stock",
-      "images": ["assets/logo.png"],
+      "images": [
+        "assets/logo.png"
+      ],
       "description": "Colorful insulated lunch box for school snacks.",
-      "descriptionAr": "صندوق غداء ملون معزول للوجبات المدرسية."
+      "descriptionAr": "صندوق غداء ملون معزول للوجبات المدرسية.",
+      "details": "Colorful insulated lunch box for school snacks. Wipe clean with a damp cloth. Not for microwave use. Ages 3–5 years."
     }
   ]
 }

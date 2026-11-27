@@ -435,42 +435,17 @@ function renderSpecialOffers() {
   container.innerHTML = offers.map(p => productCardHTML(p)).join('');
 }
 
-/* --- Offer / Discount pricing ---
-
-   Reads state.store.offers[id].originalPrice. If present and lower than the
-   current price, renders: original price (red, struck through), sale price
-   (green), and a discount badge (purple). Safe for products without an offer
-   (returns null) so real products just show the normal price.
-*/
-function renderOfferPrice(p) {
-  const offer = state.store?.offers?.[p.id];
-  if (!offer || !offer.originalPrice || offer.originalPrice <= p.price) return null;
-
-  const discountPct = Math.round(((offer.originalPrice - p.price) / offer.originalPrice) * 100);
-  const savings = (offer.originalPrice - p.price).toFixed(2);
-
-  return `
-    <div class="product-offer-price">
-      <span class="product-price-original">$${offer.originalPrice.toFixed(2)}</span>
-      <span class="product-price-sale">$${p.price}</span>
-      <span class="product-discount">-${discountPct}% (save $${savings})</span>
-    </div>
-  `;
-}
-
 function productCardHTML(p) {
   const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
   const stockClass = p.stock.toLowerCase().replace(' ', '-');
-  const desc = state.lang === 'ar' && p.descriptionAr ? p.descriptionAr : p.description;
   return `
     <article class="card product-card fade-in" data-id="${p.id}">
-      <div class="product-image">🧸</div>
+      <div class="product-image">${renderOfferBadge(p)}</div>
       <span class="product-badge">${p.ageBracket}</span>
       <div class="product-info">
         <div class="product-name">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}">${p.stock}</div>
         <div class="product-price">$${p.price}</div>
-        <p class="product-desc" style="font-size:0.85rem; color:var(--color-text-muted); margin:10px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${escapeHtml(desc)}</p>
       </div>
       <div class="product-actions">
         <button class="btn btn-accent btn-sm w-full mb-8" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة إلى السلة' : 'Add to Cart <span style="font-size:1.15em; text-shadow:0 1px 2px rgba(0,0,0,0.6);">🛒</span>'}</button>
@@ -484,16 +459,14 @@ function productCardHTML(p) {
 function productListHTML(p) {
   const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
   const stockClass = p.stock.toLowerCase().replace(' ', '-');
-  const desc = state.lang === 'ar' && p.descriptionAr ? p.descriptionAr : p.description;
   return `
     <div class="card product-card fade-in" style="display:flex; align-items:center; gap:16px;" data-id="${p.id}">
-      <div class="product-image" style="width:80px; height:80px; font-size:2.5rem;">🧸</div>
+      <div class="product-image" style="width:80px; height:80px; font-size:2.5rem;">${renderOfferBadge(p)}</div>
       <div style="flex:1;">
         <span class="product-badge">${p.ageBracket}</span>
         <div class="product-name" style="font-size:1rem;">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}" style="font-size:0.8rem;">${p.stock}</div>
         <div class="product-price">$${p.price}</div>
-        <p class="product-desc" style="font-size:0.8rem; color:var(--color-text-muted); margin:6px 0;">${escapeHtml(desc)}</p>
       </div>
       <div style="display:flex; gap:8px; flex-direction:column;">
         <button class="btn btn-accent btn-sm" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة' : 'Add'}</button>
@@ -501,6 +474,14 @@ function productListHTML(p) {
       </div>
     </div>
   `;
+}
+
+/* Small "On Offer" badge shown on the product image when the item has a discount */
+function renderOfferBadge(p) {
+  const offer = state.store?.offers?.[p.id];
+  if (!offer || !offer.originalPrice || offer.originalPrice <= p.price) return '';
+  const discountPct = Math.round(((offer.originalPrice - p.price) / offer.originalPrice) * 100);
+  return `<span class="offer-badge">-${discountPct}%</span>`;
 }
 
 function setViewMode(mode) {
@@ -704,7 +685,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// --- Product Detail Modal ---
+// --- Product Detail Modal --- (full detailed view opened by View Details)
 function openProductModal(productId) {
   const p = state.products.find(prod => prod.id === productId);
   if (!p) return;
@@ -718,19 +699,39 @@ function openProductModal(productId) {
   }
   const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
   const desc = state.lang === 'ar' && p.descriptionAr ? p.descriptionAr : p.description;
+  const details = p.details || desc;
   const stockClass = p.stock.toLowerCase().replace(' ', '-');
+  const offer = state.store?.offers?.[p.id];
+  const onOffer = !!offer && offer.originalPrice && offer.originalPrice > p.price;
+  const discountPct = onOffer ? Math.round(((offer.originalPrice - p.price) / offer.originalPrice) * 100) : 0;
+  const savings = onOffer ? (offer.originalPrice - p.price).toFixed(2) : 0;
+
+  const priceHTML = onOffer
+    ? `<div class="product-offer-price" style="margin-bottom:16px;">
+         <span class="product-price-original">${offer.originalPrice.toFixed(2)}</span>
+         <span class="product-price-sale" style="font-size:1.75rem;">$${p.price}</span>
+         <span class="product-discount" style="font-size:0.9rem; margin-left:8px;">-${discountPct}% (save $${savings})</span>
+       </div>`
+    : `<div style="font-size:1.75rem; font-weight:700; color:var(--color-primary); margin-bottom:16px;">$${p.price}</div>`;
+
   content.innerHTML = `
     <div style="text-align:center;">
       <div style="font-size:4rem; margin-bottom:16px;">🧸</div>
       <h2 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px;">${escapeHtml(name)}</h2>
       <span class="product-badge">${p.ageBracket}</span>
+      ${onOffer ? `<span class="offer-badge" style="font-size:0.85rem; padding:4px 10px; margin-left:8px; display:inline-block;">On Offer -${discountPct}%</span>` : ''}
       <span class="product-stock ${stockClass}" style="margin-left:8px;">${p.stock}</span>
     </div>
-    <p style="color:var(--color-text-muted); line-height:1.7; margin:20px 0;">${escapeHtml(desc)}</p>
+    <div style="margin:20px 0;">
+      <h3 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px;">Product Details</h3>
+      <p style="color:var(--color-text-muted); line-height:1.7; margin-bottom:12px;">${escapeHtml(desc)}</p>
+      <h4 style="font-family:var(--font-heading); color:var(--color-text); margin-bottom:6px; font-size:1rem;">How to Use</h4>
+      <p style="color:var(--color-text-muted); line-height:1.7; margin-bottom:16px;">${escapeHtml(details)}</p>
+    </div>
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding:16px; background:var(--color-surface); border-radius:var(--radius-sm); border:1px solid var(--color-border);">
       <div>
         <div style="font-size:0.85rem; color:var(--color-text-muted);">Price</div>
-        ${renderOfferPrice(p) || `<div style="font-size:1.5rem; font-weight:700; color:var(--color-primary);">$${p.price}</div>`}
+        ${priceHTML}
       </div>
       <div>
         <div style="font-size:0.85rem; color:var(--color-text-muted);">Category</div>
@@ -745,88 +746,6 @@ function openProductModal(productId) {
   document.getElementById('productModalOverlay').classList.add('open');
 }
 
-document.getElementById('productModalClose')?.addEventListener('click', () => {
-  document.getElementById('productModalOverlay')?.classList.remove('open');
-});
-document.getElementById('productModalOverlay')?.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('productModalOverlay')) {
-    document.getElementById('productModalOverlay')?.classList.remove('open');
-  }
-});
-
-// Duplicate global assignments removed — functions exposed once below (lines ~1052-1057)
-
-// --- Firebase Auth ---
-window.signUp = async function(email, password, name) {
-  if (!window.firebaseAuth) return;
-  const { createUserWithEmailAndPassword } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-  const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-  try {
-    const cred = await createUserWithEmailAndPassword(window.firebaseAuth, email, password);
-    const user = cred.user;
-    await setDoc(doc(window.firebaseDb, 'users', user.uid), {
-      uid: user.uid,
-      email: user.email,
-      name: name || '',
-      createdAt: new Date()
-    });
-    showToast(state.lang === 'ar' ? 'تم إنشاء الحساب' : 'Account created');
-    return user;
-  } catch (e) {
-    showToast(e.message || 'Signup failed');
-    throw e;
-  }
-};
-
-window.signIn = async function(email, password) {
-  if (!window.firebaseAuth) return;
-  const { signInWithEmailAndPassword } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-  try {
-    const cred = await signInWithEmailAndPassword(window.firebaseAuth, email, password);
-    showToast(state.lang === 'ar' ? 'تم تسجيل الدخول' : 'Signed in');
-    return cred.user;
-  } catch (e) {
-    showToast(e.message || 'Sign in failed');
-    throw e;
-  }
-};
-
-window.signOut = async function() {
-  if (!window.firebaseAuth) return;
-  const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-  try {
-    await signOut(window.firebaseAuth);
-    showToast(state.lang === 'ar' ? 'تم تسجيل الخروج' : 'Signed out');
-    // Revert the auth button to "Sign In / Join" after logout so the popout
-    // re-opens as the sign-in modal instead of showing a stale profile.
-    if (typeof updateAuthUI === 'function') {
-      updateAuthUI(null);
-    }
-    // Hide any open profile modal
-    const pm = document.getElementById('profileModal');
-    if (pm) {
-      pm.classList.remove('open');
-      pm.style.setProperty('display', 'none', 'important');
-      pm.style.setProperty('visibility', 'hidden', 'important');
-      pm.style.setProperty('opacity', '0', 'important');
-    }
-  } catch (e) {
-    showToast(e.message || 'Sign out failed');
-    throw e;
-  }
-};
-
-// Sync watchlist to Firestore when logged in
-async function syncWatchlistToFirestore() {
-  if (!window.firebaseAuth || !window.firebaseDb || !window.firebaseAuth.currentUser) return;
-  const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-  try {
-    await setDoc(doc(window.firebaseDb, 'users', window.firebaseAuth.currentUser.uid, 'watchlist', 'items'), {
-      items: state.watchlist,
-      updatedAt: new Date()
-    });
-  } catch (e) { /* best effort */ }
-}
 
 const origToggleWatchlist = window.toggleWatchlist;
 window.toggleWatchlist = async function(productId) {

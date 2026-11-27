@@ -59,6 +59,12 @@
           <span class="product-stock" id="productStock"></span>
           <div class="product-price" style="font-size:1.75rem; margin:16px 0;" id="productPrice"></div>
           <p style="color:var(--color-text-muted); margin-bottom:24px;" id="productDesc"></p>
+          <div style="margin-bottom:24px;">
+            <h3 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px; font-size:1.25rem;">Product Details</h3>
+            <p style="color:var(--color-text-muted); line-height:1.7; margin-bottom:12px;" id="productDetails"></p>
+            <h4 style="font-family:var(--font-heading); color:var(--color-text); margin-bottom:6px; font-size:1rem;">How to Use</h4>
+            <p style="color:var(--color-text-muted); line-height:1.7; margin-bottom:0;" id="productDetailsUse"></p>
+          </div>
           <div style="display:flex; gap:12px; flex-wrap:wrap;">
             <button class="btn btn-accent" onclick="addToCartFromDetail()">🛒 Add to Cart</button>
             <a href="https://wa.me/96178702712" class="btn btn-primary" target="_blank" data-whatsapp="true">💬 WhatsApp Order</a>
@@ -213,14 +219,31 @@ async function loadProduct() {
 }
 
 function renderProduct(p) {
-  const name = document.documentElement.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
-  const desc = document.documentElement.lang === 'ar' && p.descriptionAr ? p.descriptionAr : p.description;
+  const isAr = document.documentElement.lang === 'ar';
+  const name = isAr && p.nameAr ? p.nameAr : p.name;
+  const desc = isAr && p.descriptionAr ? p.descriptionAr : p.description;
+  const details = p.details || desc;
+  const offer = p.originalPrice ? { originalPrice: p.originalPrice } : (window.storeOffers?.[p.id]);
+  const onOffer = !!offer && offer.originalPrice && offer.originalPrice > p.price;
+  const discountPct = onOffer ? Math.round(((offer.originalPrice - p.price) / offer.originalPrice) * 100) : 0;
+  const savings = onOffer ? (offer.originalPrice - p.price).toFixed(2) : 0;
+
+  const priceHTML = onOffer
+    ? `<div style="display:flex; align-items:baseline; gap:8px; margin:16px 0;">
+         <span style="color:#C62828; text-decoration:line-through; font-size:1rem;">$${offer.originalPrice.toFixed(2)}</span>
+         <span style="color:#2E7D32; font-size:1.75rem; font-weight:700;">$${p.price}</span>
+         <span style="color:var(--color-primary); font-size:0.9rem; margin-left:8px;">-${discountPct}% (save $${savings})</span>
+       </div>`
+    : `<div style="font-size:1.75rem; font-weight:700; color:var(--color-primary); margin:16px 0;">$${p.price}</div>`;
+
   document.getElementById('productName').textContent = name;
   document.getElementById('productAge').textContent = p.ageBracket;
   document.getElementById('productStock').textContent = p.stock;
   document.getElementById('productStock').className = 'product-stock ' + p.stock.toLowerCase().replace(' ', '-');
-  document.getElementById('productPrice').textContent = '$' + p.price;
+  document.getElementById('productPrice').innerHTML = priceHTML;
   document.getElementById('productDesc').textContent = desc;
+  document.getElementById('productDetails').textContent = details;
+  document.getElementById('productDetailsUse').textContent = details;
   document.title = name + ' — Elona\'s Toys';
   document.getElementById('productContent').hidden = false;
 }
