@@ -110,7 +110,7 @@ h1, h2, h3, .font-heading {
   justify-content: center;
   gap: 0;
   padding: 0;
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
   border: none;
   background: var(--color-surface);
   color: var(--color-text);
@@ -122,9 +122,15 @@ h1, h2, h3, .font-heading {
 .icon-btn:active { transform: scale(0.97); }
 .icon-btn:hover { background: var(--color-surface-hover); }
 .icon-btn img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
+}
+
+/* Lighten social icons in dark mode so the black TikTok icon stays visible */
+[data-theme="dark"] .icon-btn {
+  background: #B37FE0;
 }
 .icon-btn-sm { width: 36px; height: 36px; }
 .icon-btn-sm img { width: 20px; height: 20px; }
