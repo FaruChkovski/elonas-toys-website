@@ -1023,17 +1023,17 @@ function setupAuthUI() {
       authBtn.title = 'Profile';
       authBtn.classList.add('round');
       authBtn.onclick = null;
-      authBtn.addEventListener('click', (e) => {
+      authBtn.onclick = (e) => {
         console.log('[auth] profile button clicked');
         e.stopPropagation();
         showProfilePopup();
-      });
+      };
     } else {
       authBtn.classList.remove('round');
       authBtn.textContent = state.lang === 'ar' ? 'انضمام' : 'Join';
       authBtn.title = 'Join';
       authBtn.onclick = null;
-      authBtn.addEventListener('click', (e) => { e.stopPropagation(); showAuthModal(); });
+      authBtn.onclick = (e) => { e.stopPropagation(); showAuthModal(); };
     }
   }
 }
