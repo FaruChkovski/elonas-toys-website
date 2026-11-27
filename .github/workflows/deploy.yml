@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Inject Firebase config from secrets
+        run: |
+          # Replace placeholder Firebase config in all HTML files with real values from GitHub Secrets
+          for f in index.html catalog.html product-detail.html about.html delivery.html watchlist.html; do
+            sed -i \
+              -e "s|apiKey: \"«reda...…»\"|apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"|g" \
+              -e "s|authDomain: \"elona-s-toys.firebaseapp.com\"|authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"|g" \
+              -e "s|projectId: \"elona-s-toys\"|projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"|g" \
+              -e "s|storageBucket: \"elona-s-toys.firebasestorage.app\"|storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"|g" \
+              -e "s|messagingSenderId: \"10036951846\"|messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"|g" \
+              -e "s|appId: \"1:10036951846:web:c9afbaf08502bab26537\"|appId: \"${{ secrets.FIREBASE_APP_ID }}\"|g" \
+              -e "s|measurementId: \"G-6LVQER9NW1\"|measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"|g" \
+              "$f"
+          done
+          echo "Firebase config injected from secrets"
+
+      - name: Upload static site to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
