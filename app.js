@@ -844,11 +844,27 @@ function setupAuthUI() {
     authModal.addEventListener('click', (e) => { if (e.target === authModal) hideAuthModal(); });
   }
 
+  // Single click handler on the auth button — checks auth state at click time
+  // so it works even if Firebase's onAuthStateChanged hasn't fired yet, and
+  // so updateAuthUI never overwrites it with a stale handler.
+  if (authBtn) {
+    authBtn.onclick = null;
+    authBtn.onclick = (e) => {
+      e.stopPropagation();
+      const user = window.firebaseAuth?.currentUser;
+      if (user) {
+        console.log('[auth] profile button clicked (signed in)');
+        showProfilePopup();
+      } else {
+        console.log('[auth] profile button clicked (signed out)');
+        showAuthModal();
+      }
+    };
+  }
+
   // Restore signed-in state on page refresh — update button + sync watchlist
   window.firebaseAuth?.onAuthStateChanged(async (user) => {
-    updateAuthUI(user);
-    if (user) {
-      try {
+    try {
         const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
         const snap = await getDoc(doc(window.firebaseDb, 'users', user.uid, 'watchlist', 'items'));
         if (snap.exists() && snap.data().items) {
@@ -856,7 +872,6 @@ function setupAuthUI() {
         }
         renderWatchlist();
       } catch (e) { /* best effort */ }
-    }
   });
 
   // --- Profile popup ---
@@ -1031,12 +1046,7 @@ function setupAuthUI() {
       authBtn.innerHTML = `<img src="${photo || fallback}" alt="Profile" style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;">`;
       authBtn.title = 'Profile';
       authBtn.classList.add('round');
-      authBtn.onclick = null;
-      authBtn.onclick = (e) => {
-        console.log('[auth] profile button clicked');
-        e.stopPropagation();
-        showProfilePopup();
-      };
+      // click handler is set once in setupAuthUI — don't overwrite it here
     } else {
       authBtn.classList.remove('round');
       authBtn.textContent = state.lang === 'ar' ? 'انضمام' : 'Join';
