@@ -765,8 +765,60 @@ header {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Utilities */
-.text-center { text-align: center; }
+/* About Us page sections */
+.about-section {
+  margin: 48px 0;
+  padding: 40px 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.about-section h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+.about-guide {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  max-width: 620px;
+  margin: 0 auto 24px;
+}
+.about-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.about-jump {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.about-jump .btn {
+  font-size: 0.9rem;
+  padding: 8px 16px;
+}
+
+/* Green WhatsApp button with logo */
+.btn-whatsapp {
+  background: #10B981;
+  color: #fff;
+}
+.btn-whatsapp:hover { background: #059669; }
+.btn-whatsapp img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
 .mb-8 { margin-bottom: 8px; } .mb-16 { margin-bottom: 16px; } .mb-24 { margin-bottom: 24px; } .mb-32 { margin-bottom: 32px; } .mb-48 { margin-bottom: 48px; }
 .py-48 { padding-top: 48px; padding-bottom: 48px; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
