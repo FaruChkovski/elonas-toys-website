@@ -469,7 +469,7 @@ function productCardHTML(p) {
       <div class="product-info">
         <div class="product-name">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}">${p.stock}</div>
-        ${renderOfferPrice(p) || `<div class="product-price">$${p.price}</div>`}
+        <div class="product-price">$${p.price}</div>
         <p class="product-desc" style="font-size:0.85rem; color:var(--color-text-muted); margin:10px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${escapeHtml(desc)}</p>
       </div>
       <div class="product-actions">
@@ -492,7 +492,7 @@ function productListHTML(p) {
         <span class="product-badge">${p.ageBracket}</span>
         <div class="product-name" style="font-size:1rem;">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}" style="font-size:0.8rem;">${p.stock}</div>
-        ${renderOfferPrice(p) || `<div class="product-price">$${p.price}</div>`}
+        <div class="product-price">$${p.price}</div>
         <p class="product-desc" style="font-size:0.8rem; color:var(--color-text-muted); margin:6px 0;">${escapeHtml(desc)}</p>
       </div>
       <div style="display:flex; gap:8px; flex-direction:column;">
@@ -730,7 +730,7 @@ function openProductModal(productId) {
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding:16px; background:var(--color-surface); border-radius:var(--radius-sm); border:1px solid var(--color-border);">
       <div>
         <div style="font-size:0.85rem; color:var(--color-text-muted);">Price</div>
-        <div style="font-size:1.5rem; font-weight:700; color:var(--color-primary);">$${p.price}</div>
+        ${renderOfferPrice(p) || `<div style="font-size:1.5rem; font-weight:700; color:var(--color-primary);">$${p.price}</div>`}
       </div>
       <div>
         <div style="font-size:0.85rem; color:var(--color-text-muted);">Category</div>
