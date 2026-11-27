@@ -914,30 +914,36 @@ function setupAuthUI() {
   }
 
   function showProfilePopup() {
-    const profileModal = getProfileModal();
-    if (!profileModal) return;
-    const user = window.firebaseAuth.currentUser;
-    // Scope queries inside the modal — there are duplicate id="profileName"
-    // elements elsewhere in the DOM (auth form), so document.getElementById
-    // would return the wrong one.
-    const avatarEl = profileModal.querySelector('#profileAvatar');
-    const nameEl = profileModal.querySelector('#profileName');
-    const emailEl = profileModal.querySelector('#profileEmail');
-    if (avatarEl) {
-      avatarEl.src = user?.photoURL || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28">🧸</text></svg>';
-      avatarEl.alt = 'Profile';
+      const profileModal = getProfileModal();
+      if (!profileModal) return;
+      const user = window.firebaseAuth.currentUser;
+      // Scope queries inside the modal — there are duplicate id="profileName"
+      // elements elsewhere in the DOM (auth form), so document.getElementById
+      // would return the wrong one.
+      const avatarEl = profileModal.querySelector('#profileAvatar');
+      const nameEl = profileModal.querySelector('#profileName');
+      const emailEl = profileModal.querySelector('#profileEmail');
+      if (avatarEl) {
+        avatarEl.src = user?.photoURL || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28">🧸</text></svg>';
+        avatarEl.alt = 'Profile';
+      }
+      if (nameEl) nameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
+      if (emailEl) emailEl.textContent = user?.email || '';
+      // Force visibility on the overlay with !important
+      profileModal.style.setProperty('display', 'flex', 'important');
+      profileModal.style.setProperty('visibility', 'visible', 'important');
+      profileModal.style.setProperty('opacity', '1', 'important');
+      profileModal.style.setProperty('z-index', '99999', 'important');
+      profileModal.classList.add('open');
+      // Also force the inner .modal card to show
+      const innerModal = profileModal.querySelector('.modal');
+      if (innerModal) {
+        innerModal.style.setProperty('display', 'block', 'important');
+        innerModal.style.setProperty('visibility', 'visible', 'important');
+        innerModal.style.setProperty('opacity', '1', 'important');
+      }
+      console.log('[profile] modal opened, computed display:', getComputedStyle(profileModal).display);
     }
-    if (nameEl) nameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
-    if (emailEl) emailEl.textContent = user?.email || '';
-    // Force visibility with !important so it overrides the inline <style>
-    // #profileModal { display: none !important; } rule.
-    profileModal.style.setProperty('display', 'flex', 'important');
-    profileModal.style.setProperty('visibility', 'visible', 'important');
-    profileModal.style.setProperty('opacity', '1', 'important');
-    profileModal.style.setProperty('z-index', '99999', 'important');
-    profileModal.classList.add('open');
-    console.log('[profile] modal opened, computed display:', getComputedStyle(profileModal).display);
-  }
   function hideProfilePopup() {
     const profileModal = getProfileModal();
     if (!profileModal) return;
