@@ -435,6 +435,29 @@ function renderSpecialOffers() {
   container.innerHTML = offers.map(p => productCardHTML(p)).join('');
 }
 
+/* --- Offer / Discount pricing ---
+
+   Reads state.store.offers[id].originalPrice. If present and lower than the
+   current price, renders: original price (red, struck through), sale price
+   (green), and a discount badge (purple). Safe for products without an offer
+   (returns null) so real products just show the normal price.
+*/
+function renderOfferPrice(p) {
+  const offer = state.store?.offers?.[p.id];
+  if (!offer || !offer.originalPrice || offer.originalPrice <= p.price) return null;
+
+  const discountPct = Math.round(((offer.originalPrice - p.price) / offer.originalPrice) * 100);
+  const savings = (offer.originalPrice - p.price).toFixed(2);
+
+  return `
+    <div class="product-offer-price">
+      <span class="product-price-original">$${offer.originalPrice.toFixed(2)}</span>
+      <span class="product-price-sale">$${p.price}</span>
+      <span class="product-discount">-${discountPct}% (save $${savings})</span>
+    </div>
+  `;
+}
+
 function productCardHTML(p) {
   const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
   const stockClass = p.stock.toLowerCase().replace(' ', '-');
@@ -446,7 +469,7 @@ function productCardHTML(p) {
       <div class="product-info">
         <div class="product-name">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}">${p.stock}</div>
-        <div class="product-price">$${p.price}</div>
+        ${renderOfferPrice(p) || `<div class="product-price">$${p.price}</div>`}
         <p class="product-desc" style="font-size:0.85rem; color:var(--color-text-muted); margin:10px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${escapeHtml(desc)}</p>
       </div>
       <div class="product-actions">
@@ -469,9 +492,9 @@ function productListHTML(p) {
         <span class="product-badge">${p.ageBracket}</span>
         <div class="product-name" style="font-size:1rem;">${escapeHtml(name)}</div>
         <div class="product-stock ${stockClass}" style="font-size:0.8rem;">${p.stock}</div>
+        ${renderOfferPrice(p) || `<div class="product-price">$${p.price}</div>`}
         <p class="product-desc" style="font-size:0.8rem; color:var(--color-text-muted); margin:6px 0;">${escapeHtml(desc)}</p>
       </div>
-      <div class="product-price">$${p.price}</div>
       <div style="display:flex; gap:8px; flex-direction:column;">
         <button class="btn btn-accent btn-sm" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة' : 'Add'}</button>
         <button class="btn btn-ghost btn-sm" onclick="openProductModal('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${state.lang === 'ar' ? 'تفاصيل' : 'Details'}</button>

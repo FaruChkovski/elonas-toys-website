@@ -654,6 +654,29 @@ header {
   margin-bottom: 16px;
   margin-top: auto;
 }
+
+/* Discount pricing for special offers */
+.product-offer-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: auto;
+}
+.product-price-original {
+  color: #C62828;
+  text-decoration: line-through;
+  font-size: 0.95rem;
+}
+.product-price-sale {
+  color: #2E7D32;
+}
+.product-discount {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+}
 .product-actions {
   width: 100%;
 }

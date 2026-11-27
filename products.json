@@ -9,7 +9,15 @@
     "hours": "Monday – Sunday, 9:00 AM – 9:30 PM",
     "delivery": "Available across Lebanon",
     "paymentMethods": ["Whish Money", "Pay Upon Delivery"],
-    "specialOffers": ["p001", "p002", "p003", "p004", "p007", "p009"]
+    "specialOffers": ["p001", "p002", "p003", "p004", "p007", "p009"],
+    "offers": {
+      "p001": { "originalPrice": 35 },
+      "p002": { "originalPrice": 42 },
+      "p003": { "originalPrice": 25 },
+      "p004": { "originalPrice": 38 },
+      "p007": { "originalPrice": 55 },
+      "p009": { "originalPrice": 28 }
+    }
     },
   "ageBrackets": [
     "0–12 Months",
