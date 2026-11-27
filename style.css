@@ -819,6 +819,30 @@ header {
   vertical-align: middle;
   display: inline-block;
 }
+
+/* Instagram button — pink background with mini logo */
+.btn-instagram {
+  background: #E1306C;
+  color: #fff;
+}
+.btn-instagram:hover { background: #C13584; }
+
+/* TikTok button — white background with black mini logo */
+.btn-tiktok {
+  background: #fff;
+  color: #000;
+  border: 1px solid var(--color-border);
+}
+.btn-tiktok:hover { background: #f5f5f5; }
+
+/* Mini social logo inside buttons */
+.mini-logo {
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
 .mb-8 { margin-bottom: 8px; } .mb-16 { margin-bottom: 16px; } .mb-24 { margin-bottom: 24px; } .mb-32 { margin-bottom: 32px; } .mb-48 { margin-bottom: 48px; }
 .py-48 { padding-top: 48px; padding-bottom: 48px; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
