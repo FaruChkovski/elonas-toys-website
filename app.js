@@ -886,14 +886,21 @@ function setupAuthUI() {
   window.firebaseAuth?.onAuthStateChanged(async (user) => {
     updateAuthUI(user);
     try {
-        const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-        const snap = await getDoc(doc(window.firebaseDb, 'users', user.uid, 'watchlist', 'items'));
-        if (snap.exists() && snap.data().items) {
-          state.watchlist = snap.data().items;
-        }
-        renderWatchlist();
-      } catch (e) { /* best effort */ }
+      const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+      const snap = await getDoc(doc(window.firebaseDb, 'users', user.uid, 'watchlist', 'items'));
+      if (snap.exists() && snap.data().items) {
+        state.watchlist = snap.data().items;
+      }
+      renderWatchlist();
+    } catch (e) { /* best effort */ }
   });
+
+  // Immediate check if already signed in (covers case where Firebase restores
+  // session before setupAuthUI has run — prevents login modal instead of profile)
+  const currentUser = window.firebaseAuth?.currentUser;
+  if (currentUser && typeof updateAuthUI === 'function') {
+    updateAuthUI(currentUser);
+  }
 
   // --- Profile popup ---
   const profileModalClose = document.getElementById('profileModalClose');
