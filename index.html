@@ -8,31 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Cairo:wght@400;700&family=Lalezar&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-#profileModal {
-  position: fixed !important; inset: 0 !important;
-  background: rgba(0,0,0,0.7) !important;
-  display: none !important;
-  align-items: center !important; justify-content: center !important;
-  z-index: 99999 !important; backdrop-filter: blur(6px);
-}
-#profileModal.open {
-  display: flex !important;
-  visibility: visible !important; opacity: 1 !important;
-  outline: 5px solid #ff0000 !important;
-  outline-offset: -5px !important;
-}
-#profileModal .modal {
-  background: #2A1B3E !important;
-  border: 3px solid #8E44AD !important;
-  border-radius: 20px !important;
-  padding: 32px !important;
-  max-width: 360px !important;
-  width: 90% !important;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6) !important;
-  z-index: 100000 !important;
-}
-</style>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
@@ -341,7 +316,6 @@
 
 <!-- Profile popup -->
 <div class="modal-overlay" id="profileModal">
-  <div class="modal" style="max-width:360px;">
     <button class="modal-close" id="profileModalClose">×</button>
     <div id="profilePopupContent" style="text-align:center; padding:24px 16px;">
       <img id="profileAvatar" src="" alt="Profile" style="width:64px; height:64px; border-radius:50%; background:var(--color-border); object-fit:cover; margin:0 auto 12px; display:block; object-position:center;">

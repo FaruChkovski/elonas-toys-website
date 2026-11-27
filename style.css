@@ -496,6 +496,22 @@ header {
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+/* Profile modal explicit visibility guarantee */
+#profileModal.modal-overlay.open {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 99999 !important;
+  background: rgba(0,0,0,0.7) !important;
+}
+#profileModal.modal-overlay.open .modal {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: var(--color-surface) !important;
+  border: 2px solid var(--color-border) !important;
+}
 .modal {
   background: var(--color-surface);
   border: 2px solid var(--color-border);

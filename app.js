@@ -926,14 +926,12 @@ function setupAuthUI() {
     }
     if (nameEl) nameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (emailEl) emailEl.textContent = user?.email || '';
-
-    // Force visibility on overlay and inner card
-    profileModal.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important; z-index: 99999 !important; pointer-events: auto !important;';
+    // Use CSS class toggling — visibility is handled by style.css
+    profileModal.style.display = 'flex';
+    profileModal.style.visibility = 'visible';
+    profileModal.style.opacity = '1';
+    profileModal.style.zIndex = '99999';
     profileModal.classList.add('open');
-    const innerModal = profileModal.querySelector('.modal');
-    if (innerModal) {
-      innerModal.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;';
-    }
     console.log('[profile] modal opened, computed display:', getComputedStyle(profileModal).display);
   }
   function hideProfilePopup() {
