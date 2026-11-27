@@ -776,9 +776,20 @@ window.signOut = async function() {
     showToast(state.lang === 'ar' ? 'تم تسجيل الخروج' : 'Signed out');
     // Revert the auth button to "Sign In / Join" after logout so the popout
     // re-opens as the sign-in modal instead of showing a stale profile.
-    updateAuthUI(null);
+    if (typeof updateAuthUI === 'function') {
+      updateAuthUI(null);
+    }
+    // Hide any open profile modal
+    const pm = document.getElementById('profileModal');
+    if (pm) {
+      pm.classList.remove('open');
+      pm.style.setProperty('display', 'none', 'important');
+      pm.style.setProperty('visibility', 'hidden', 'important');
+      pm.style.setProperty('opacity', '0', 'important');
+    }
   } catch (e) {
     showToast(e.message || 'Sign out failed');
+    throw e;
   }
 };
 
