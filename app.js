@@ -872,27 +872,36 @@ function setupAuthUI() {
 
   function showProfilePopup() {
     const profileModal = getProfileModal();
-    console.log('[profile] showProfilePopup called, modal found:', !!profileModal);
     if (!profileModal) return;
     const user = window.firebaseAuth.currentUser;
-    const avatarEl = document.getElementById('profileAvatar');
+    // Scope queries inside the modal — there are duplicate id="profileName"
+    // elements elsewhere in the DOM (auth form), so document.getElementById
+    // would return the wrong one.
+    const avatarEl = profileModal.querySelector('#profileAvatar');
+    const nameEl = profileModal.querySelector('#profileName');
+    const emailEl = profileModal.querySelector('#profileEmail');
     if (avatarEl) {
       avatarEl.src = user?.photoURL || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28">🧸</text></svg>';
       avatarEl.alt = 'Profile';
     }
-    if (profileNameEl) profileNameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
-    if (profileEmailEl) profileEmailEl.textContent = user?.email || '';
-    profileModal.style.display = 'flex';
-    profileModal.style.visibility = 'visible';
-    profileModal.style.opacity = '1';
-    profileModal.style.zIndex = '9999';
+    if (nameEl) nameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
+    if (emailEl) emailEl.textContent = user?.email || '';
+    // Force visibility with !important so it overrides the inline <style>
+    // #profileModal { display: none !important; } rule.
+    profileModal.style.setProperty('display', 'flex', 'important');
+    profileModal.style.setProperty('visibility', 'visible', 'important');
+    profileModal.style.setProperty('opacity', '1', 'important');
+    profileModal.style.setProperty('z-index', '99999', 'important');
     profileModal.classList.add('open');
-    console.log('[profile] modal opened, classes:', profileModal.className, 'computed display:', getComputedStyle(profileModal).display);
+    console.log('[profile] modal opened, computed display:', getComputedStyle(profileModal).display);
   }
   function hideProfilePopup() {
     const profileModal = getProfileModal();
     if (!profileModal) return;
     profileModal.classList.remove('open');
+    profileModal.style.setProperty('display', 'none', 'important');
+    profileModal.style.setProperty('visibility', 'hidden', 'important');
+    profileModal.style.setProperty('opacity', '0', 'important');
   }
   if (profileModalClose) profileModalClose.addEventListener('click', hideProfilePopup);
   const profileModalEl = getProfileModal();
