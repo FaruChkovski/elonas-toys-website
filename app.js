@@ -37,6 +37,7 @@ let state = {
     keyword: '',
     budget: 'all'
   },
+  sort: 'default',
   budgetRanges: [
     { label: '0–25$', min: null, max: 25 },
     { label: '25–50$', min: 25, max: 50 },
@@ -344,7 +345,7 @@ function renderFilters() {
   }
   if (!mainAgeContainer && !els.modalAgeFilterContainer) return;
 
-  // Chip click handlers for main containers
+  // Toggle click handlers for main containers
   if (mainAgeContainer) {
     mainAgeContainer.addEventListener('click', (e) => {
       if (e.target.classList.contains('chip')) {
@@ -378,10 +379,44 @@ function renderFilters() {
       }
     });
   }
+
+  // Sort change handler
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      renderProducts();
+    });
+  }
+
+  // Filter toggle button handlers (mobile accordion style)
+  const toggles = [
+    { btn: 'ageToggleBtn', list: 'ageFilterList' },
+    { btn: 'categoryToggleBtn', list: 'categoryFilterList' },
+    { btn: 'budgetToggleBtn', list: 'budgetFilterList' }
+  ];
+  toggles.forEach(({ btn, list }) => {
+    const b = document.getElementById(btn);
+    const l = document.getElementById(list);
+    if (!b || !l) return;
+    const arrow = b.querySelector('span');
+    b.addEventListener('click', () => {
+      const open = l.classList.toggle('open');
+      arrow.textContent = open ? '▲' : '▼';
+      // Close other open lists
+      toggles.forEach(({ btn: b2, list: l2 }) => {
+        if (l2 !== l) {
+          document.getElementById(l2)?.classList.remove('open');
+          const otherArrow = document.getElementById(b2)?.querySelector('span');
+          if (otherArrow) otherArrow.textContent = '▼';
+        }
+      });
+    });
+  });
 }
 
 function renderFilterContainer(kind, container) {
-  container.innerHTML = '<button class="chip active" data-filter="' + kind + '" data-value="all">' + (state.lang === 'ar' ? kind === 'age' ? 'جميع الأعمار' : kind === 'category' ? 'جميع الأقسام' : 'جميع الميزانيات' : kind === 'age' ? 'All Ages' : kind === 'category' ? 'All Categories' : 'All Budgets') + '</button>';
+  container.innerHTML = '';
   let items = [];
   if (kind === 'age') items = state.ageBrackets || [];
   if (kind === 'category') items = state.categories || [];
@@ -416,6 +451,12 @@ window.renderProducts = function renderProducts() {
     }
     return ageMatch && catMatch && kwMatch && budgetMatch;
   });
+
+  // Apply sorting
+  if (state.sort === 'name-asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
+  else if (state.sort === 'name-desc') filtered.sort((a, b) => b.name.localeCompare(a.name));
+  else if (state.sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+  else if (state.sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
 
   // Update result count
   if (els.catalogResultCount) {

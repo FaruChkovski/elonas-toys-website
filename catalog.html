@@ -53,12 +53,32 @@
     <div class="search-form" style="flex:1; min-width:280px;">
       <input type="text" id="searchInput" placeholder="🔍 Search toys...">
     </div>
-    <div style="font-weight:600; margin-top:6px; font-size:0.9rem;" data-i18n="filter.age">Filter by Age</div>
-    <div class="filter-chips" id="ageFilterContainer" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
-    <div style="font-weight:600; margin-top:16px; margin-bottom:8px; font-size:0.9rem;" data-i18n="filter.category">Filter by Category</div>
-    <div class="filter-chips" id="categoryFilterContainer" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
-    <div style="font-weight:600; margin-top:16px; margin-bottom:8px; font-size:0.9rem;" data-i18n="filter.budget">Filter by Budget</div>
-    <div class="filter-chips" id="budgetFilterContainer" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+    <div class="filter-section">
+      <h4 data-i18n="filter.age">Filter by Age</h4>
+      <button class="filter-toggle-btn" id="ageToggleBtn">Age <span>▼</span></button>
+      <div class="filter-list" id="ageFilterList"></div>
+    </div>
+    <div class="filter-section">
+      <h4 data-i18n="filter.category">Filter by Category</h4>
+      <button class="filter-toggle-btn" id="categoryToggleBtn">Category <span>▼</span></button>
+      <div class="filter-list" id="categoryFilterList"></div>
+    </div>
+    <div class="filter-section">
+      <h4 data-i18n="filter.budget">Filter by Budget</h4>
+      <button class="filter-toggle-btn" id="budgetToggleBtn">Price <span>▼</span></button>
+      <div class="filter-list" id="budgetFilterList"></div>
+    </div>
+  </div>
+
+  <div class="sort-control">
+    <label data-i18n="sort.label">Sort by</label>
+    <select class="sort-select" id="sortSelect">
+      <option value="default" data-i18n="sort.default">Default</option>
+      <option value="name-asc" data-i18n="sort.name">A → Z</option>
+      <option value="name-desc" data-i18n="sort.nameDesc">Z → A</option>
+      <option value="price-asc" data-i18n="sort.priceAsc">Price: Low → High</option>
+      <option value="price-desc" data-i18n="sort.priceDesc">Price: High → Low</option>
+    </select>
   </div>
 
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
