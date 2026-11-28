@@ -729,11 +729,11 @@ function openProductModal(productId) {
   document.getElementById('productModalOverlay').classList.add('open');
 }
 
-// Close the product detail modal when the × button is clicked
+// Close the current tab when the product detail modal × button is clicked
 const productModalCloseBtn = document.getElementById('productModalClose');
 if (productModalCloseBtn) {
   productModalCloseBtn.addEventListener('click', () => {
-    document.getElementById('productModalOverlay').classList.remove('open');
+    window.close();
   });
 }
 
