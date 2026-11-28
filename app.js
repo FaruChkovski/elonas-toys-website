@@ -882,14 +882,26 @@ function setupAuthUI() {
   }
   if (profileSignOutBtn) profileSignOutBtn.addEventListener('click', async () => {
     hideProfilePopup();
-    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-    await signOut(window.firebaseAuth);
+    try {
+      const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+      if (!window.firebaseAuth) { showToast('Auth not ready'); return; }
+      await signOut(window.firebaseAuth);
+    } catch (e) {
+      console.error('Sign out failed:', e);
+      showToast('Sign out failed: ' + (e.message || e));
+    }
   });
   if (profileSwitchBtn) profileSwitchBtn.addEventListener('click', async () => {
     hideProfilePopup();
-    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-    await signOut(window.firebaseAuth);
-    showAuthModal();
+    try {
+      const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+      if (!window.firebaseAuth) { showToast('Auth not ready'); return; }
+      await signOut(window.firebaseAuth);
+      showAuthModal();
+    } catch (e) {
+      console.error('Sign out failed:', e);
+      showToast('Sign out failed: ' + (e.message || e));
+    }
   });
 
   // Google sign-in
