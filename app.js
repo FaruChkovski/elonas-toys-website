@@ -115,6 +115,12 @@ async function init() {
       renderProducts();
     });
   }
+  if (els.modalOverlay && document.getElementById('modalSearchBtn')) {
+    document.getElementById('modalSearchBtn').addEventListener('click', () => {
+      const term = (els.modalSearchInput?.value || '').trim();
+      window.location.href = `catalog.html?keyword=${encodeURIComponent(term)}`;
+    });
+  }
 
   // Wire modal filter containers (rendered on-demand via renderFilters below)
   if (els.modalAgeFilterContainer) {
@@ -218,6 +224,7 @@ function applyUrlFilters() {
   const params = new URLSearchParams(window.location.search);
   const ageParam = params.get('age');
   const catParam = params.get('category');
+  const kwParam = params.get('keyword');
 
   if (ageParam) {
     const decoded = decodeURIComponent(ageParam);
@@ -228,6 +235,11 @@ function applyUrlFilters() {
     const decoded = decodeURIComponent(catParam);
     const match = state.categories.find(c => c === decoded);
     if (match) state.filters.category = match;
+  }
+  if (kwParam) {
+    state.filters.keyword = kwParam;
+    const modalInput = document.getElementById('modalSearchInput');
+    if (modalInput) modalInput.value = kwParam;
   }
 }
 
