@@ -882,11 +882,13 @@ function setupAuthUI() {
   }
   if (profileSignOutBtn) profileSignOutBtn.addEventListener('click', async () => {
     hideProfilePopup();
-    await signOut();
+    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+    await signOut(window.firebaseAuth);
   });
   if (profileSwitchBtn) profileSwitchBtn.addEventListener('click', async () => {
     hideProfilePopup();
-    await signOut();
+    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+    await signOut(window.firebaseAuth);
     showAuthModal();
   });
 
