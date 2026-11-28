@@ -729,11 +729,11 @@ function openProductModal(productId) {
   document.getElementById('productModalOverlay').classList.add('open');
 }
 
-// Close the current tab when the product detail modal × button is clicked
+// Close the product detail modal when the × button is clicked
 const productModalCloseBtn = document.getElementById('productModalClose');
 if (productModalCloseBtn) {
   productModalCloseBtn.addEventListener('click', () => {
-    window.close();
+    document.getElementById('productModalOverlay').classList.remove('open');
   });
 }
 
@@ -860,9 +860,9 @@ function setupAuthUI() {
     if (nameEl) nameEl.textContent = user?.displayName || user?.email?.split('@')[0] || 'User';
     if (emailEl) emailEl.textContent = user?.email || '';
     // Use CSS class toggling — visibility is handled by style.css
-    profileModal.style.display = 'flex';
-    profileModal.style.visibility = 'visible';
-    profileModal.style.opacity = '1';
+    profileModal.style.setProperty('display', 'flex', 'important');
+    profileModal.style.setProperty('visibility', 'visible', 'important');
+    profileModal.style.setProperty('opacity', '1', 'important');
     profileModal.style.zIndex = '99999';
     profileModal.classList.add('open');
     console.log('[profile] modal opened, computed display:', getComputedStyle(profileModal).display);
