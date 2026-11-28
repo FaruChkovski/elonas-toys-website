@@ -529,6 +529,7 @@ header {
   animation: none;
   opacity: 1 !important;
   visibility: visible !important;
+  position: relative;
 }
 @keyframes slideIn {
   from { transform: translateY(-30px); opacity: 0; }
