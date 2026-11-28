@@ -419,8 +419,8 @@ window.renderProducts = function renderProducts() {
     els.productsGrid.className = 'grid grid-cols-4';
     els.productsGrid.innerHTML = filtered.map(p => productCardHTML(p)).join('');
   } else {
-    els.productsGrid.className = 'list-view';
-    els.productsGrid.innerHTML = filtered.map(p => productListHTML(p)).join('');
+    els.productsGrid.className = 'grid grid-cols-4';
+    els.productsGrid.innerHTML = filtered.map(p => productCardHTML(p)).join('');
   }
 }
 
@@ -440,7 +440,10 @@ function productCardHTML(p) {
   const stockClass = p.stock.toLowerCase().replace(' ', '-');
   return `
     <article class="card product-card fade-in" data-id="${p.id}">
-      <div class="product-image">${renderOfferBadge(p)}</div>
+      <div class="product-image" style="position:relative;">
+        <img src="${p.images?.[0] || 'assets/placeholder-bear-card.png'}" alt="${escapeHtml(name)}" style="width:100%; height:100%; object-fit:cover; display:block;">
+        ${renderOfferBadge(p)}
+      </div>
       <span class="product-badge">${p.ageBracket}</span>
       <div class="product-info">
         <div class="product-name">${escapeHtml(name)}</div>
@@ -453,26 +456,6 @@ function productCardHTML(p) {
         <button class="btn btn-ghost btn-sm w-full" onclick="openProductModal('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${state.lang === 'ar' ? 'عرض التفاصيل' : 'View Details'}</button>
       </div>
     </article>
-  `;
-}
-
-function productListHTML(p) {
-  const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
-  const stockClass = p.stock.toLowerCase().replace(' ', '-');
-  return `
-    <div class="card product-card fade-in" style="display:flex; align-items:center; gap:16px;" data-id="${p.id}">
-      <div class="product-image" style="width:80px; height:80px; font-size:2.5rem;">${renderOfferBadge(p)}</div>
-      <div style="flex:1;">
-        <span class="product-badge">${p.ageBracket}</span>
-        <div class="product-name" style="font-size:1rem;">${escapeHtml(name)}</div>
-        <div class="product-stock ${stockClass}" style="font-size:0.8rem;">${p.stock}</div>
-        <div class="product-price">$${p.price}</div>
-      </div>
-      <div style="display:flex; gap:8px; flex-direction:column;">
-        <button class="btn btn-accent btn-sm" onclick="addToCart('${p.id}')">${state.lang === 'ar' ? 'إضافة' : 'Add'}</button>
-        <button class="btn btn-ghost btn-sm" onclick="openProductModal('${p.id}')" style="color:var(--color-text); border-color:var(--color-border);">${state.lang === 'ar' ? 'تفاصيل' : 'Details'}</button>
-      </div>
-    </div>
   `;
 }
 
@@ -692,9 +675,9 @@ function openProductModal(productId) {
   const overlay = document.getElementById('productModalOverlay');
   const content = document.getElementById('productModalContent');
   // Some pages (e.g. index.html) don't have the product modal markup — fall back
-  // to the dedicated product detail page instead of crashing.
+  // to opening the product modal instead of a removed page.
   if (!overlay || !content) {
-    window.location.href = `product-detail.html?id=${productId}`;
+    openProductModal(productId);
     return;
   }
   const name = state.lang === 'ar' && p.nameAr ? p.nameAr : p.name;
@@ -715,13 +698,13 @@ function openProductModal(productId) {
     : `<div style="font-size:1.75rem; font-weight:700; color:var(--color-primary); margin-bottom:16px;">$${p.price}</div>`;
 
   content.innerHTML = `
-    <div style="text-align:center;">
-      <div style="font-size:4rem; margin-bottom:16px;">🧸</div>
-      <h2 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px;">${escapeHtml(name)}</h2>
-      <span class="product-badge">${p.ageBracket}</span>
-      ${onOffer ? `<span class="offer-badge" style="font-size:0.85rem; padding:4px 10px; margin-left:8px; display:inline-block;">On Offer -${discountPct}%</span>` : ''}
-      <span class="product-stock ${stockClass}" style="margin-left:8px;">${p.stock}</span>
+    <div style="position:relative; text-align:center; margin-bottom:8px;">
+      <img src="${p.images?.[0] || 'assets/placeholder-bear-detail.png'}" alt="${escapeHtml(name)}" style="width:100%; max-width:420px; height:auto; border-radius:var(--radius-sm); border:1px solid var(--color-border); object-fit:cover; margin-bottom:12px; display:block; margin-left:auto; margin-right:auto;">
+      ${onOffer ? `<span class="offer-badge" style="position:absolute; top:10px; left:10px;">On Offer -${discountPct}%</span>` : ''}
     </div>
+    <h2 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px;">${escapeHtml(name)}</h2>
+    <span style="font-size:0.9rem; font-weight:700; color:var(--color-primary);">Age: ${p.ageBracket}</span>
+    <span class="product-stock ${stockClass}" style="margin-left:12px;">${p.stock}</span>
     <div style="margin:20px 0;">
       <h3 style="font-family:var(--font-heading); color:var(--color-primary); margin-bottom:8px;">Product Details</h3>
       <p style="color:var(--color-text-muted); line-height:1.7; margin-bottom:12px;">${escapeHtml(desc)}</p>
